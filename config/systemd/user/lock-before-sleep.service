@@ -1,0 +1,11 @@
+[Unit]
+Description=Lock Noctalia before sleep
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swayidle -w before-sleep @HOME@/.local/bin/lock-before-sleep
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
