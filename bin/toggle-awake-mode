@@ -1,0 +1,17 @@
+#!/bin/sh
+if systemctl --user is-active --quiet awake-mode.service; then
+    systemctl --user stop awake-mode.service || exit 1
+    noctalia msg caffeine-disable >/dev/null
+    noctalia msg notification-show 'Disabled Awake mode' 'Normal idle behavior restored.' >/dev/null
+else
+    if ! noctalia msg caffeine-enable >/dev/null; then
+        noctalia msg notification-show 'Awake mode failed' 'Could not prevent display idle.' >/dev/null
+        exit 1
+    fi
+    if ! systemctl --user start awake-mode.service; then
+        noctalia msg caffeine-disable >/dev/null
+        noctalia msg notification-show 'Awake mode failed' 'Could not prevent sleep.' >/dev/null
+        exit 1
+    fi
+    noctalia msg notification-show 'Enabled Awake mode' 'Display and idle sleep are inhibited.' >/dev/null
+fi
