@@ -1,0 +1,9 @@
+[Unit]
+Description=Keep display awake and inhibit idle sleep
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/systemd-inhibit --what=idle:sleep --who=Awake-mode --why=Awake-mode-enabled --mode=block @HOME@/.local/bin/awake-mode-monitor
+ExecStopPost=-/usr/bin/noctalia msg caffeine-disable
+Restart=on-failure
+RestartSec=5
