@@ -17,7 +17,7 @@ Run as your regular user from an active Niri session:
 ./install.sh
 ```
 
-The script validates the staged Niri and Noctalia configs, saves existing files under `~/.local/state/my-dots-backups/`, and installs the configuration, scripts, services and cursor theme. It enables the sleep-lock helper if swayidle is installed. It creates `~/Pictures/noctalia-wallpapers` and `~/Pictures/Screenshots`.
+The script validates the staged Niri and Noctalia configs, saves existing files under `~/.local/state/my-dots-backups/`, and installs the configuration, scripts, services and cursor theme. It enables a daily user-configuration backup timer and the sleep-lock helper if swayidle is installed. The daily snapshots exclude wallpapers, accumulate under `~/.local/state/my-dots-backups/`, and are stored on the same disk. Copy them elsewhere for disk-failure protection. It creates `~/Pictures/noctalia-wallpapers` and `~/Pictures/Screenshots`.
 
 Add your own wallpaper images to `~/Pictures/noctalia-wallpapers`, then press **Mod+Shift+W** to choose one. Noctalia's Niri template generates border colors from the wallpaper; the backdrop appears in overview. Noctalia's existing GUI-managed state may override the shipped TOML settings. If settings look different, inspect `~/.local/state/noctalia/settings.toml` and use the Noctalia settings UI. The installer does not overwrite that state.
 

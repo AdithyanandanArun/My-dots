@@ -29,11 +29,11 @@ for item in niri noctalia kitty fastfetch fish environment.d; do
   cp -a "$stage/$item/." "$HOME/.config/$item/"
 done
 mkdir -p "$HOME/.config/systemd/user" "$backup/user-services" "$backup/bin" "$backup/icons"
-for unit in awake-mode.service lock-before-sleep.service laptop-refresh-rate.service; do
+for unit in awake-mode.service lock-before-sleep.service laptop-refresh-rate.service desktop-backup.service desktop-backup.timer; do
   [[ ! -e "$HOME/.config/systemd/user/$unit" ]] || cp -a "$HOME/.config/systemd/user/$unit" "$backup/user-services/"
   cp -a "$stage/systemd/user/$unit" "$HOME/.config/systemd/user/"
 done
-for script in awake-mode-monitor toggle-awake-mode lock-before-sleep laptop-refresh-rate; do
+for script in awake-mode-monitor toggle-awake-mode lock-before-sleep laptop-refresh-rate backup-desktop-setup; do
   [[ ! -e "$HOME/.local/bin/$script" ]] || cp -a "$HOME/.local/bin/$script" "$backup/bin/"
   install -m 755 "$stage/bin/$script" "$HOME/.local/bin/$script"
 done
@@ -44,6 +44,7 @@ if command -v gsettings >/dev/null; then
   gsettings set org.gnome.desktop.interface cursor-size 48 || true
 fi
 systemctl --user daemon-reload
+systemctl --user enable --now desktop-backup.timer || true
 systemctl --user set-environment XCURSOR_THEME=W11-Concept-Dark-Smooth XCURSOR_SIZE=48 || true
 if command -v swayidle >/dev/null; then systemctl --user enable --now lock-before-sleep.service || true; fi
 [[ ! -e "$HOME/.config/xdg-terminals.list" ]] || cp -a "$HOME/.config/xdg-terminals.list" "$backup/"
