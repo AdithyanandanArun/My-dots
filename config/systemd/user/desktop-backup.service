@@ -1,0 +1,5 @@
+[Unit]
+Description=Back up My-dots user configuration
+[Service]
+Type=oneshot
+ExecStart=@HOME@/.local/bin/backup-desktop-setup

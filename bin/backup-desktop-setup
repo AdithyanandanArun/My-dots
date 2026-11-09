@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+out="$HOME/.local/state/my-dots-backups"
+mkdir -p "$out"
+paths=()
+for path in .config/niri .config/noctalia .config/kitty .config/fastfetch .config/fish .config/environment.d .config/systemd/user .local/bin .local/share/icons/W11-Concept-Dark-Smooth .local/state/noctalia/settings.toml .local/state/noctalia/state.toml; do
+  [[ ! -e "$HOME/$path" ]] || paths+=("$path")
+done
+stamp=$(date +%Y%m%d-%H%M%S-%N)
+tmp="$out/.desktop-$stamp.tar.gz.tmp"
+trap 'rm -f "$tmp"' EXIT
+tar -C "$HOME" -czf "$tmp" "${paths[@]}"
+mv "$tmp" "$out/desktop-$stamp.tar.gz"
+printf '%s\n' "$out/desktop-$stamp.tar.gz"
