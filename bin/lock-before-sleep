@@ -1,0 +1,9 @@
+#!/bin/sh
+noctalia msg session lock >/dev/null 2>&1 || exit 1
+for attempt in 1 2 3 4 5 6 7 8 9 10; do
+    if noctalia msg status 2>/dev/null | /usr/bin/grep -q '"locked": true'; then
+        exit 0
+    fi
+    sleep 0.2
+done
+exit 1
