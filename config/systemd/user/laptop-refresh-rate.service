@@ -1,0 +1,12 @@
+[Unit]
+Description=Set laptop refresh rate based on external power
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=@HOME@/.local/bin/laptop-refresh-rate
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
