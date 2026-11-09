@@ -1,0 +1,51 @@
+[shell]
+[shell.launcher]
+pinned = ["steam", "org.gnome.Nautilus", "kitty", "vesktop", "zen-browser", "spotify", "org.vinegarhq.Sober"]
+sort_by_usage = true
+categories = false
+[shell.panel]
+launcher_position = "bottom_center"
+[bar.main]
+position = "top"
+background_opacity = 0.4
+radius = 12
+margin_ends = 12
+margin_edge = 4
+widget_spacing = 1
+font_scale = 1.02
+capsule = true
+capsule_fill = "primary"
+capsule_opacity = 0.09
+start = ["launcher", "clock", "system-monitor", "active-window", "media", "audio-visualizer"]
+center = ["workspaces"]
+end = ["network", "bluetooth", "battery", "volume", "control-center"]
+[audio]
+enable_overdrive = true
+enable_volume_sounds = false
+[wallpaper]
+directory = "@HOME@/Pictures/noctalia-wallpapers"
+[theme]
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-tonal-spot"
+
+[theme.templates]
+enable_builtin_templates = true
+builtin_ids = ["niri"]
+
+[widget.battery]
+show_label = false
+
+[widget.volume]
+show_label = false
+
+[widget.network]
+show_label = false
+
+[widget.bluetooth]
+show_label = false
+
+[backdrop]
+enabled = true
+blur_intensity = 0.5
+tint_intensity = 0.3
