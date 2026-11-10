@@ -1,12 +1,18 @@
 [shell]
+card_borders = false
+corner_radius_scale = 0.8
+show_close_buttons = false
 [shell.launcher]
 pinned = ["steam", "org.gnome.Nautilus", "kitty", "vesktop", "zen-browser", "spotify", "org.vinegarhq.Sober"]
 sort_by_usage = true
+default_view = "all"
 categories = false
 [shell.panel]
-launcher_position = "bottom_center"
+launcher_position = "center"
 [bar.main]
-position = "top"
+position = "left"
+thickness = 45
+scale = 1.25
 background_opacity = 0.4
 radius = 12
 margin_ends = 12
