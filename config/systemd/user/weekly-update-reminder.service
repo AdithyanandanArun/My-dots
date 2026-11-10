@@ -1,0 +1,12 @@
+[Unit]
+Description=Ask when system updates are due
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=@HOME@/.local/bin/weekly-update-reminder
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=graphical-session.target
