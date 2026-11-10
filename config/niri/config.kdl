@@ -427,3 +427,7 @@ cursor {
     xcursor-theme "W11-Concept-Dark-Smooth"
     xcursor-size 48
 }
+
+hotkey-overlay {
+    skip-at-startup
+}
