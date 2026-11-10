@@ -1,0 +1,18 @@
+#!/bin/sh
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/weekly-updates"
+mkdir -p "$state_dir"
+now=$(date +%s)
+last_success=$(cat "$state_dir/last-success" 2>/dev/null || printf '0')
+last_prompt=$(cat "$state_dir/last-prompt" 2>/dev/null || printf '0')
+case "$last_success" in ''|*[!0-9]*) last_success=0;; esac
+case "$last_prompt" in ''|*[!0-9]*) last_prompt=0;; esac
+if [ "${UPDATE_REMINDER_FORCE:-0}" != 1 ]; then
+    [ $((now - last_success)) -ge 604800 ] || exit 0
+    # If dismissed or deferred, ask again the next day.
+    [ $((now - last_prompt)) -ge 86400 ] || exit 0
+fi
+choice=$(notify-send --app-name='System Updates' --icon=system-software-update --urgency=normal --expire-time=0 --action='install=Review and install' --action='later=Later' 'System updates due' 'No successful update has been recorded in the past week. Review and install now?') || exit 0
+date +%s > "$state_dir/last-prompt"
+if [ "$choice" = install ]; then
+    systemd-run --user --collect --quiet --description="Interactive system updates" /usr/bin/kitty --title "System Updates" @HOME@/.local/bin/run-system-updates
+fi
