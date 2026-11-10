@@ -1,0 +1,27 @@
+#!/bin/sh
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/weekly-updates"
+mkdir -p "$state_dir"
+exec 9>"$state_dir/update.lock"
+if ! flock -n 9; then
+    printf 'An update is already running.\n'
+    exit 1
+fi
+printf 'System updates\n\nFirst: sudo pacman -Syu\nThen: yay -Syu\nReview prompts and enter your password when requested.\n\n'
+sudo pacman -Syu
+result=$?
+if [ "$result" -eq 0 ]; then
+    yay -Syu
+    result=$?
+fi
+printf '\n'
+if [ "$result" -eq 0 ]; then
+    date +%s > "$state_dir/last-success.tmp" && mv "$state_dir/last-success.tmp" "$state_dir/last-success"
+    printf 'Both update commands completed successfully.\n'
+    notify-send --app-name='System Updates' 'Updates complete' 'System and AUR updates completed successfully.'
+else
+    printf 'Update exited with status %s. Review the output above.\n' "$result"
+    notify-send --app-name='System Updates' --urgency=critical 'Updates did not complete' "The update process exited with status $result."
+fi
+printf '\nPress Enter to close this window. '
+read -r reply
+exit "$result"
