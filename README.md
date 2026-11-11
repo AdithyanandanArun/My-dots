@@ -1,6 +1,22 @@
 # My-dots
 
-A Niri and Noctalia v5 desktop setup with a floating bar, wallpaper-based colors, Kitty, Fish, Fastfetch, a dark cursor, and an optional Pixie SDDM login theme. Wallpaper images are not included.
+A Niri and Noctalia v5 desktop setup with a left-side bar, wallpaper-based colors, Kitty, Fish, Fastfetch, a dark cursor, and an optional Pixie SDDM login theme. Wallpaper images are not included.
+
+## Screenshots
+
+### Desktop
+
+![Desktop with forest wallpaper](screenshots/desktop.png)
+
+### Purple wallpaper
+
+![Desktop with purple tree wallpaper](screenshots/purple-desktop.png)
+
+### Kitty terminal
+
+![Kitty terminal with Fastfetch](screenshots/terminal.png)
+
+The screenshots show example wallpapers; wallpaper files are not included.
 
 ## Requirements
 
@@ -39,6 +55,12 @@ Kitty uses JetBrains Mono Nerd Font and starts Fish when available, otherwise Ba
 | Mod+Ctrl+V | Toggle floating window |
 
 Awake mode inhibits idle and sleep and displays a notification. Manual lid and power actions can still suspend. The user service stops with the graphical session. Mod+Right and Mod+Up navigate windows in place of the original Mod+L and Mod+K.
+
+## Weekly update reminder
+
+On Arch systems with `pacman`, `yay` and `notify-send`, the installer enables a reminder that checks at login and hourly. If no successful update has been recorded in seven days, it offers a notification. Choosing Review and install opens Kitty and runs `sudo pacman -Syu` followed by `yay -Syu`; both can request confirmation and a password. Dismissed reminders can return the next day. Only updates run through this helper are recorded. The reminder does not start installation without your choice.
+
+To disable the reminder, run `systemctl --user disable --now weekly-update-reminder.timer` and `systemctl --user disable weekly-update-reminder.service`.
 
 ## Optional system settings
 
