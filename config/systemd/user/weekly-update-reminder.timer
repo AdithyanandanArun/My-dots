@@ -1,0 +1,9 @@
+[Unit]
+Description=Check regularly whether system updates are due
+
+[Timer]
+OnStartupSec=2min
+OnUnitInactiveSec=1h
+
+[Install]
+WantedBy=timers.target
